@@ -13,9 +13,9 @@
     <description>registry component</description>
 
     <properties>
-
+        <skipTests>true</skipTests>
+        <start-class>com.labs.springcloud.eureka.SpringcloudEurekaServiceApplication</start-class>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -47,6 +47,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>${filename-append}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -54,5 +55,24 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <filename-append>springcloud-eureka-dev</filename-append>
+                <profiles.activation>dev</profiles.activation>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <filename-append>springcloud-eureka-prd</filename-append>
+                <profiles.activation>prd</profiles.activation>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>

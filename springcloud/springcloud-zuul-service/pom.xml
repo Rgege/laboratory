@@ -13,9 +13,28 @@
     <description>service gateway component</description>
 
     <properties>
-
+        <skipTests>true</skipTests>
+        <start-class>com.labs.springcloud.zuul.SpringcloudZuulServiceApplication</start-class>
     </properties>
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <filename-append>springcloud-zuul-dev</filename-append>
+                <profiles.activation>dev</profiles.activation>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <filename-append>springcloud-zuul-prd</filename-append>
+                <profiles.activation>prd</profiles.activation>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -52,6 +71,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>${filename-append}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
